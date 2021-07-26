@@ -1,0 +1,26 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User{ //create account resolver를 위한 것
+
+  id Int @id @default(autoincrement())
+  firstName   String
+  lastName    String?
+  username    String @unique //username은 하나만 존재해야 함
+  email       String @unique
+  password    String
+  bio         String?
+  avator      String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+} 
+//model 만들기 하고 난 후에는 해야할 일이 migrate --> npm run migrate(package.json에 이미 존재)
